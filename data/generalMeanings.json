@@ -1,0 +1,42 @@
+{
+  "The Fool": {
+    "upright": "The Fool represents new beginnings, innocence, and spontaneity. It suggests taking a leap of faith and embarking on a new journey with an open heart.",
+    "reversed": "The Fool reversed indicates recklessness, poor decisions, and taking unnecessary risks. It suggests a need to be more careful and thoughtful in your approach."
+  },
+  "The Magician": {
+    "upright": "The Magician represents manifestation, resourcefulness, and inspired action. It suggests you have all the tools you need to succeed and create your reality.",
+    "reversed": "The Magician reversed indicates manipulation, untapped talents, and poor planning. It suggests a need to be more honest with yourself and others."
+  },
+  "The High Priestess": {
+    "upright": "The High Priestess represents intuition, mystery, and inner wisdom. It suggests listening to your inner voice and trusting your instincts.",
+    "reversed": "The High Priestess reversed indicates secrets, disconnection from intuition, and information withheld. It suggests a need to look deeper and trust your inner knowing."
+  },
+  "The Empress": {
+    "upright": "The Empress represents abundance, nurturing, and fertility. It suggests a time of growth, creativity, and connection with the natural world.",
+    "reversed": "The Empress reversed indicates creative blocks, dependence, and neglect. It suggests a need to reconnect with your creative energy and nurture yourself."
+  },
+  "The Emperor": {
+    "upright": "The Emperor represents authority, structure, and control. It suggests leadership, stability, and establishing order in your life.",
+    "reversed": "The Emperor reversed indicates domination, excessive control, and rigidity. It suggests a need to be more flexible and less controlling."
+  },
+  "The Sun": {
+    "upright": "The Sun represents joy, success, and positivity. It suggests a time of happiness, vitality, and enlightenment.",
+    "reversed": "The Sun reversed indicates temporary setbacks, inner child issues, and clouded joy. It suggests that success is still possible but may be delayed."
+  },
+  "The Moon": {
+    "upright": "The Moon represents intuition, dreams, and the subconscious. It suggests a time of uncertainty, but also deep insight and emotional understanding.",
+    "reversed": "The Moon reversed indicates confusion, fear, and misinterpretation. It suggests a need to face your fears and see things more clearly."
+  },
+  "Death": {
+    "upright": "Death represents transformation, endings, and change. It suggests letting go of the old to make way for the new.",
+    "reversed": "Death reversed indicates resistance to change, stagnation, and inability to move on. It suggests a need to accept the inevitable and embrace transformation."
+  },
+  "The Tower": {
+    "upright": "The Tower represents sudden change, upheaval, and revelation. It suggests a time of chaos that ultimately leads to greater understanding.",
+    "reversed": "The Tower reversed indicates avoiding disaster, fear of change, and delaying the inevitable. It suggests that change is coming, whether you're ready or not."
+  },
+  "The Star": {
+    "upright": "The Star represents hope, faith, and inspiration. It suggests a time of healing, renewal, and spiritual connection.",
+    "reversed": "The Star reversed indicates lack of faith, despair, and disconnection. It suggests a need to rekindle your hope and find inspiration again."
+  }
+} 
