@@ -1,7 +1,3 @@
-import { StreamingTextResponse } from 'ai';
-import { experimental_buildGroqSchema, GroqSchema } from 'ai/groq';
-import { experimental_buildAnthropicSchema, AnthropicSchema } from 'ai/anthropic';
-
 /**
  * Call AI to generate a tarot reading
  * @param {string} question - The user's question
@@ -53,14 +49,15 @@ const tarotReadingSchema = {
  * @returns {Promise<{card: string, orientation: string, interpretation: string}>}
  */
 async function callGroq(question) {
-  // Set up Groq schema
-  const schema = experimental_buildGroqSchema({
-    tools: [{
+  // Define tools directly in OpenAI-compatible format for Groq
+  const tools = [{
+    type: "function",
+    function: {
       name: "tarot_reading",
       description: "Generate a tarot card reading",
       parameters: tarotReadingSchema,
-    }],
-  });
+    },
+  }];
 
   // Define the system prompt
   const systemPrompt = `You are a skilled tarot reader using the Rider-Waite deck. 
@@ -88,7 +85,7 @@ async function callGroq(question) {
             { role: 'system', content: systemPrompt },
             { role: 'user', content: `Question for tarot reading: ${question}` }
           ],
-          tools: schema.tools,
+          tools: tools,
           tool_choice: { type: "function", function: { name: "tarot_reading" } },
         }),
       });
@@ -129,14 +126,12 @@ async function callGroq(question) {
  * @returns {Promise<{card: string, orientation: string, interpretation: string}>}
  */
 async function callClaude(question) {
-  // Set up Claude schema
-  const schema = experimental_buildAnthropicSchema({
-    tools: [{
-      name: "tarot_reading",
-      description: "Generate a tarot card reading",
-      parameters: tarotReadingSchema,
-    }],
-  });
+  // Define tools directly in Anthropic-compatible format
+  const tools = [{
+    name: "tarot_reading",
+    description: "Generate a tarot card reading",
+    input_schema: tarotReadingSchema,
+  }];
 
   // Define the system prompt
   const systemPrompt = `You are a skilled tarot reader using the Rider-Waite deck. 
@@ -166,7 +161,7 @@ async function callClaude(question) {
           messages: [
             { role: 'user', content: `Question for tarot reading: ${question}` }
           ],
-          tools: schema.tools,
+          tools: tools,
           tool_choice: { type: "tool", name: "tarot_reading" },
         }),
       });
@@ -197,4 +192,4 @@ async function callClaude(question) {
   }
 
   throw lastError || new Error("Failed to call Claude API");
-} 
+}
