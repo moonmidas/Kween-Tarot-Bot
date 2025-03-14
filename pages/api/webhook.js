@@ -31,9 +31,12 @@ export default async function handler(req, res) {
     const userId = req.body.message?.from?.id;
     const text = req.body.message?.text || '';
 
-    // Check if this is the designated chat
-    if (process.env.DESIGNATED_CHAT_ID && chatId !== process.env.DESIGNATED_CHAT_ID) {
+    // Check if this is the designated chat (convert to strings for comparison)
+    const designatedChatId = process.env.DESIGNATED_CHAT_ID;
+    if (designatedChatId && String(chatId) !== String(designatedChatId)) {
       console.log(`Ignoring message from non-designated chat: ${chatId}`);
+      console.log(`Expected chat ID: ${designatedChatId}`);
+      console.log(`Types: ${typeof chatId} vs ${typeof designatedChatId}`);
       res.status(200).send("OK");
       return;
     }
