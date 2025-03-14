@@ -63,7 +63,16 @@ async function callGroq(question) {
   const systemPrompt = `You are a skilled tarot reader using the Rider-Waite deck. 
   Randomly select one card from the 78-card Rider-Waite tarot deck and determine if it's upright or reversed.
   Based on that card, provide a short interpretation in the context of the user's question.
-  Your response should be a structured JSON object with the card name, orientation, and interpretation.`;
+  Your response should be a structured JSON object with the card name, orientation, and interpretation.
+  
+  IMPORTANT: Card names must EXACTLY match one of the following approved names, using "The" prefix for all numbered cards:
+  "The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor", "The Sun", "The Moon", 
+  "Death", "The Tower", "The Star", "The Hermit", "The Wheel of Fortune", "Justice", "The Hanged Man", 
+  "The Devil", "Fortitude", "The World", "The Lovers", "The Chariot", "Temperance", "Judgement",
+  "The Eight of Wands"
+  
+  Specifically, all numbered cards must include "The" prefix (e.g., "The Eight of Wands" not "Eight of Wands").
+  Using an exact match is critical as the system will fail to find card descriptions otherwise.`;
 
   // Define retry settings
   const maxRetries = 3;
@@ -137,7 +146,16 @@ async function callClaude(question) {
   const systemPrompt = `You are a skilled tarot reader using the Rider-Waite deck. 
   Randomly select one card from the 78-card Rider-Waite tarot deck and determine if it's upright or reversed.
   Based on that card, provide a short interpretation in the context of the user's question.
-  Your response should be a structured JSON object with the card name, orientation, and interpretation.`;
+  Your response should be a structured JSON object with the card name, orientation, and interpretation.
+  
+  IMPORTANT: Card names must EXACTLY match one of the following approved names, using "The" prefix for all numbered cards:
+  "The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor", "The Sun", "The Moon", 
+  "Death", "The Tower", "The Star", "The Hermit", "The Wheel of Fortune", "Justice", "The Hanged Man", 
+  "The Devil", "Fortitude", "The World", "The Lovers", "The Chariot", "Temperance", "Judgement",
+  "The Eight of Wands"
+  
+  Specifically, all numbered cards must include "The" prefix (e.g., "The Eight of Wands" not "Eight of Wands").
+  Using an exact match is critical as the system will fail to find card descriptions otherwise.`;
 
   // Define retry settings
   const maxRetries = 3;

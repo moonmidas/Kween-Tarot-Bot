@@ -81,11 +81,23 @@ export async function readingCommand(chatId, userId, text) {
     }
     
     // Get the general meaning for this card and orientation
-    const generalMeaning = generalMeanings[reading.card]?.[reading.orientation];
+    let generalMeaning = generalMeanings[reading.card]?.[reading.orientation];
+    
+    // If not found, try adding "The " prefix if it doesn't already have it
+    if (!generalMeaning && !reading.card.startsWith("The ")) {
+      const cardWithPrefix = `The ${reading.card}`;
+      generalMeaning = generalMeanings[cardWithPrefix]?.[reading.orientation];
+      
+      // If found with the prefix, update the card name
+      if (generalMeaning) {
+        reading.card = cardWithPrefix;
+        console.log(`Card name normalized: "${reading.card}" found in database`);
+      }
+    }
     
     if (!generalMeaning) {
       console.error(`No general meaning found for ${reading.card} (${reading.orientation})`);
-      await sendMessage(chatId, "An error occurred while generating your reading. Please try again.");
+      await sendMessage(chatId, `No general meaning found for ${reading.card} (${reading.orientation})`);
       return;
     }
     

@@ -1,65 +1,104 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { ConvexHttpClient } from 'convex/browser';
+import fetch from 'node-fetch'; // For making HTTP requests to Telegram API
 
-import { helpCommand } from "@/utils/commands/help";
-import { toggleBotCommand } from "@/utils/commands/togglebot";
-import { readingCommand } from "@/utils/commands/reading";
-import { sendMessage } from "@/utils/telegram";
+// Initialize Convex client with environment variable
+const convex = new ConvexHttpClient(process.env.CONVEX_URL);
+// Telegram API endpoint using bot token from environment variables
+const TELEGRAM_API_URL = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}`;
 
-export const config = {
-  maxDuration: 60,
-};
-
+/**
+ * Handles incoming Telegram webhook requests
+ * @param {Object} req - Next.js API request object
+ * @param {Object} res - Next.js API response object
+ */
 export default async function handler(req, res) {
-  // Verify the request method
-  if (req.method !== "POST") {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).send('Method Not Allowed');
-    return;
-  }
-
-  // Verify the secret token if provided
-  const secretToken = req.headers['x-telegram-bot-api-secret-token'];
-  if (process.env.TELEGRAM_SECRET_TOKEN && secretToken !== process.env.TELEGRAM_SECRET_TOKEN) {
-    console.error("Invalid secret token");
-    res.status(401).send('Unauthorized');
-    return;
-  }
-
   try {
-    // Extract message data
-    const chatId = req.body.message?.chat?.id;
-    const userId = req.body.message?.from?.id;
-    const text = req.body.message?.text || '';
+    const update = req.body;
+    const chatId = update.message.chat.id;
+    const text = update.message.text;
 
-    // Check if this is the designated chat (convert to strings for comparison)
-    const designatedChatId = process.env.DESIGNATED_CHAT_ID;
-    if (designatedChatId && String(chatId) !== String(designatedChatId)) {
-      console.log(`Ignoring message from non-designated chat: ${chatId}`);
-      console.log(`Expected chat ID: ${designatedChatId}`);
-      console.log(`Types: ${typeof chatId} vs ${typeof designatedChatId}`);
-      res.status(200).send("OK");
-      return;
+    if (text.startsWith('/reading')) {
+      try {
+        // Attempt to retrieve bot state from Convex
+        const state = await convex.query('botState:get', { chatId });
+        if (!state) {
+          throw new Error('Bot state not found');
+        }
+
+        // Generate photo URL based on bot state
+        const photoUrl = generatePhotoUrl(state);
+        // Validate the photo URL before sending
+        if (!isValidHttpUrl(photoUrl)) {
+          throw new Error('Invalid photo URL');
+        }
+
+        // Send the photo to the Telegram user
+        await sendPhoto(chatId, photoUrl);
+      } catch (error) {
+        // Log the error and inform the user
+        console.error('Error processing /reading command:', error);
+        await sendMessage(chatId, 'Sorry, there was an error processing your request. Please try again later.');
+      }
     }
 
-    console.log("ChatID:", chatId);
-    console.log("UserID:", userId);
-    console.log("Text:", text);
-
-    // Handle commands
-    if (text.startsWith("/start") || text.startsWith("/help")) {
-      await helpCommand(chatId);
-    } else if (text.startsWith("/togglebot")) {
-      await toggleBotCommand(chatId, userId);
-    } else if (text.startsWith("/reading")) {
-      await readingCommand(chatId, userId, text);
-    } else {
-      // For any other message, respond with help
-      await helpCommand(chatId);
-    }
-
-    res.status(200).send("OK");
+    // Respond to Telegram to acknowledge receipt
+    res.status(200).send('OK');
   } catch (error) {
-    console.error("Error processing webhook:", error);
-    res.status(500).send("Internal Server Error");
+    // Handle unexpected errors in the webhook
+    console.error('Webhook error:', error);
+    res.status(500).send('Error');
+  }
+}
+
+/**
+ * Sends a photo to a Telegram chat
+ * @param {number} chatId - The Telegram chat ID
+ * @param {string} photoUrl - The URL of the photo to send
+ */
+async function sendPhoto(chatId, photoUrl) {
+  const url = `${TELEGRAM_API_URL}/sendPhoto?chat_id=${chatId}&photo=${encodeURIComponent(photoUrl)}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  if (!data.ok) {
+    throw new Error(`Failed to send photo: ${data.description}`);
+  }
+}
+
+/**
+ * Sends a text message to a Telegram chat
+ * @param {number} chatId - The Telegram chat ID
+ * @param {string} text - The message text
+ */
+async function sendMessage(chatId, text) {
+  const url = `${TELEGRAM_API_URL}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  if (!data.ok) {
+    throw new Error(`Failed to send message: ${data.description}`);
+  }
+}
+
+/**
+ * Generates a photo URL based on the bot state
+ * @param {Object} state - The bot state retrieved from Convex
+ * @returns {string} - The generated photo URL
+ */
+function generatePhotoUrl(state) {
+  // Placeholder implementation; replace with actual logic
+  // Assumes state has a photoUrl property
+  return state.photoUrl || 'https://example.com/default-photo.jpg';
+}
+
+/**
+ * Validates if a string is a valid HTTP/HTTPS URL
+ * @param {string} string - The URL to validate
+ * @returns {boolean} - True if valid, false otherwise
+ */
+function isValidHttpUrl(string) {
+  try {
+    const url = new URL(string);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch (_) {
+    return false;
   }
 }

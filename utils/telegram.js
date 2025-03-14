@@ -31,37 +31,6 @@ export async function sendMessage(chatid, text, options = {}) {
 }
 
 /**
- * Send a photo with caption to a Telegram chat
- * @param {string} chatid - The Telegram chat ID
- * @param {string} fileId - The Telegram file ID of the photo
- * @param {string} caption - The caption text
- * @returns {Promise<void>}
- */
-export async function sendPhoto(chatid, fileId, caption) {
-    const url = `${TELEGRAM_API_URL}/sendPhoto`;
-    try {
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                chat_id: chatid,
-                photo: fileId,
-                caption: caption,
-                parse_mode: "Markdown"
-            })
-        });
-        
-        if (!response.ok){
-            console.error("Failed to send photo to Telegram user", await response.text());
-        }
-    } catch (err) {
-        console.error("Error occurred while sending photo to Telegram user", err);
-    }
-}
-
-/**
  * Check if a user is an admin in a chat
  * @param {string} chatId - The Telegram chat ID
  * @param {string} userId - The Telegram user ID
