@@ -13,9 +13,6 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as botState from "../botState.js";
-import type * as imageMappings from "../imageMappings.js";
-import type * as userUsage from "../userUsage.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -25,11 +22,7 @@ import type * as userUsage from "../userUsage.js";
  * const myFunctionReference = api.myModule.myFunction;
  * ```
  */
-declare const fullApi: ApiFromModules<{
-  botState: typeof botState;
-  imageMappings: typeof imageMappings;
-  userUsage: typeof userUsage;
-}>;
+declare const fullApi: ApiFromModules<{}>;
 export declare const api: FilterApi<
   typeof fullApi,
   FunctionReference<any, "public">
