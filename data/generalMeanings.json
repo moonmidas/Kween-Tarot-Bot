@@ -38,5 +38,49 @@
   "The Star": {
     "upright": "The Star represents hope, faith, and inspiration. It suggests a time of healing, renewal, and spiritual connection.",
     "reversed": "The Star reversed indicates lack of faith, despair, and disconnection. It suggests a need to rekindle your hope and find inspiration again."
+  },
+  "The Hermit": {
+    "upright": "The Hermit represents introspection, wisdom, and solitude. It suggests a time of reflection, inner strength, and spiritual guidance.",
+    "reversed": "The Hermit reversed indicates isolation, withdrawal, and lack of direction. It suggests a need to seek guidance and connect with others."
+  },
+  "The Wheel of Fortune": {
+    "upright": "The Wheel of Fortune represents fate, cycles, and change. It suggests a time of unexpected opportunities, good luck, and positive change.",
+    "reversed": "The Wheel of Fortune reversed indicates bad luck, setbacks, and a lack of control. It suggests a need to take a step back and reassess your situation."
+  },
+  "Justice": {
+    "upright": "Justice represents fairness, balance, and integrity. It suggests a time of justice, truth, and resolution.",
+    "reversed": "Justice reversed indicates injustice, bias, and dishonesty. It suggests a need to be more fair and just in your actions."
+  },
+  "The Hanged Man": {
+    "upright": "The Hanged Man represents sacrifice, patience, and perspective. It suggests a time of surrender, understanding, and finding a new way to look at things.",
+    "reversed": "The Hanged Man reversed indicates stubbornness, martyrdom, and a lack of perspective. It suggests a need to find a new way to look at things and move forward."
+  },
+  "The Devil": {
+    "upright": "The Devil represents addiction, control, and manipulation. It suggests a time of being trapped in a cycle of negative patterns.",
+    "reversed": "The Devil reversed indicates freedom, independence, and breaking free from negative patterns. It suggests a need to take control of your life and break free from negative influences."
+  },
+  "Fortitude": {
+    "upright": "Fortitude represents strength, resilience, and perseverance. It suggests a time of overcoming challenges and staying focused on your goals.",
+    "reversed": "Fortitude reversed indicates weakness, giving up, and a lack of determination. It suggests a need to find strength and stay focused on your goals."
+  },
+  "The World": {
+    "upright": "The World represents completion, fulfillment, and integration. It suggests a time of success, achievement, and reaching your full potential.",
+    "reversed": "The World reversed indicates stagnation, lack of progress, and a lack of direction. It suggests a need to find a new way to look at things and move forward."
+  },
+  "The Lovers": {
+    "upright": "The Lovers represents love, choice, and harmony. It suggests a time of making important decisions, finding balance, and choosing your path wisely.",
+    "reversed": "The Lovers reversed indicates indecision, conflict, and a lack of direction. It suggests a need to find a new way to look at things and move forward."
+  },
+  "The Chariot": {
+    "upright": "The Chariot represents control, direction, and progress. It suggests a time of moving forward, achieving goals, and staying focused on your path.",
+    "reversed": "The Chariot reversed indicates being stuck, indecision, and a lack of direction. It suggests a need to find a new way to look at things and move forward."
+  },
+  "Temperance": {
+    "upright": "Temperance represents balance, moderation, and harmony. It suggests a time of finding balance, moderation, and harmony in your life.",
+    "reversed": "Temperance reversed indicates excess, imbalance, and a lack of moderation. It suggests a need to find balance and moderation in your life."
+  },
+  "Judgement": {
+    "upright": "Judgement represents evaluation, decision, and clarity. It suggests a time of making important decisions, finding clarity, and moving forward.",
+    "reversed": "Judgement reversed indicates indecision, confusion, and a lack of direction. It suggests a need to find a new way to look at things and move forward."
   }
 } 
